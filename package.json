@@ -1,38 +1,5 @@
 {
-  "_from": "page-cli@^1.0.0",
-  "_id": "page-cli@1.0.0",
-  "_inBundle": false,
-  "_integrity": "sha512-swQ0bfyJSWfFr42IXr8A774yA1n+YudhzsaHBKhWSkczSqjvgZvSvM8NEnx6QKnfOHBXbdNR5vhahjNUMlftQQ==",
-  "_location": "/@page/cli-init/page-cli",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "range",
-    "registry": true,
-    "raw": "page-cli@^1.0.0",
-    "name": "page-cli",
-    "escapedName": "page-cli",
-    "rawSpec": "^1.0.0",
-    "saveSpec": null,
-    "fetchSpec": "^1.0.0"
-  },
-  "_requiredBy": [
-    "/@page/cli-init"
-  ],
-  "_resolved": "https://registry.npmjs.org/page-cli/-/page-cli-1.0.0.tgz",
-  "_shasum": "afc3cc6ce6de350d89876fee2dc163d0b83e0136",
-  "_spec": "vue-cli@^2.9.2",
-  "_where": "C:\\Users\\Reza\\AppData\\Roaming\\npm\\node_modules\\@page\\page-init",
-  "author": {
-    "name": "Evan You"
-  },
-  "bin": {
-    "page": "bin/page",
-    "page-init": "bin/page-init",
-    "page-list": "bin/page-list"
-  },
-  "bugs": {
-    "url": "https://github.com/motebus/page-cli/issues"
-  },
+
   "bundleDependencies": false,
   "dependencies": {
     "async": "^2.4.0",
@@ -68,7 +35,7 @@
   "engines": {
     "node": ">=6.0.0"
   },
-  "homepage": "https://github.com/motebus/page-cli#readme",
+  "homepage": "https://github.com/motebus/page-cli",
   "keywords": [
     "page",
     "cli",
@@ -76,15 +43,14 @@
   ],
   "license": "MIT",
   "name": "page-cli",
+  "main": "bin/page",
   "preferGlobal": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/motebus/page-cli.git"
+    "url": "https://github.com/motebus/page-cli"
   },
   "scripts": {
-    "e2e": "rimraf test/e2e/mock-template-build && mocha test/e2e/test.js --slow 1000",
-    "lint": "eslint test/e2e/test*.js lib bin/* --env mocha",
-    "test": "npm run lint && npm run e2e"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "version": "1.0.0"
 }
