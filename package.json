@@ -42,7 +42,7 @@
     "gitpage"
   ],
   "license": "MIT",
-  "name": "page-cli",
+  "name": "@motebus/page-cli",
   "main": "bin/page",
   "preferGlobal": true,
   "repository": {
