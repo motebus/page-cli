@@ -1,4 +1,4 @@
-# page-cli [![Build Status](https://img.shields.io/circleci/project/vuejs/page-cli/master.svg)](https://circleci.com/gh/vuejs/page-cli) [![npm package](https://img.shields.io/npm/v/page-cli.svg)](https://www.npmjs.com/package/page-cli)
+# page-cli [![Build Status](https://img.shields.io/circleci/project/@motebus/page-cli/master.svg)](https://circleci.com/gh/@motebus/page-cli) [![npm package](https://img.shields.io/npm/v/page-cli.svg)](https://www.npmjs.com/package/@motebus/page-cli)
 
 A simple CLI for scaffolding gitpage projects.
 
