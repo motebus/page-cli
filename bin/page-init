@@ -4,6 +4,7 @@ const download = require('download-git-repo')
 const program = require('commander')
 const exists = require('fs').existsSync
 const path = require('path')
+const fs = require('fs')
 const ora = require('ora')
 const home = require('user-home')
 const tildify = require('tildify')
@@ -66,6 +67,9 @@ const to = path.resolve(rawName || '.')
 const clone = program.clone || false
 
 const tmp = path.join(home, '.motebus', template.replace(/[\/:]/g, '-'))
+if (!fs.existsSync(tmp)){
+  fs.mkdirSync(tmp)
+}
 if (program.offline) {
   console.log(`> Use cached template at ${chalk.yellow(tildify(tmp))}`)
   template = tmp
@@ -145,6 +149,7 @@ function run () {
 function downloadAndGenerate (template) {
   const spinner = ora('downloading template')
   spinner.start()
+
   // Remove if local template exists
   if (exists(tmp)) rm(tmp)
   download(template, tmp, { clone }, err => {
