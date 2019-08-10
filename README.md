@@ -22,7 +22,7 @@ Example:
 $ page init helloworld my-project
 ```
 
-The above command pulls the template from [gitpage-templates/helloworld](https://github.com/gitpage-templates/helloworld), prompts for some information, and generates the project at `./my-project/`.
+The above command pulls the template from [motebus/helloworld](https://github.com/motebus/helloworld), prompts for some information, and generates the project at `./my-project/`.
 
 ### page build
 
@@ -32,12 +32,12 @@ Use page-cli as a zero-configuration development tool for your Vue apps and comp
 
 The purpose of official Vue project templates are to provide opinionated, battery-included development tooling setups so that users can get started with actual app code as fast as possible. However, these templates are un-opinionated in terms of how you structure your app code and what libraries you use in addition to Vue.js.
 
-All official project templates are repos in the [gitpage-templates organization](https://github.com/gitpage-templates). When a new template is added to the organization, you will be able to run `page init <template-name> <project-name>` to use that template. You can also run `page list` to see all available official templates.
+All official project templates are repos in the [motebus organization](https://github.com/motebus). When a new template is added to the organization, you will be able to run `page init <template-name> <project-name>` to use that template. You can also run `page list` to see all available official templates.
 
 Current available templates include:
 
 
-- [helloworld](https://github.com/vuejs-templates/helloworld) - A simple Page setup for quick prototyping.
+- [helloworld](https://github.com/motebus/helloworld) - A simple Page setup for quick prototyping.
 
 
 ### Custom Templates
@@ -264,7 +264,7 @@ page init '<template-name>#<branch-name>' <project-name>
 
 Example:
 
-Installing the [`1.0` branch](https://github.com/gitpage-templates/helloworld/tree/1.0) of the helloworld vue template:
+Installing the [`1.0` branch](https://github.com/motebus/helloworld/tree/1.0) of the helloworld vue template:
 
 ```
 page init 'helloworld#1.0' mynewproject
