@@ -7,14 +7,6 @@ const routes = [
     component: View,
     meta: {
       title: "View"
-    },
-    beforeEnter (to, from, next) {
-      store.dispatch('fetchUser');
-      if (store.state.UToken) {
-        next();
-      } else {
-        next('/login');
-      }
     }
   },
 ];

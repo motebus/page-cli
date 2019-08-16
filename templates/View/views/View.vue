@@ -2,7 +2,7 @@
       <v-layout row fill-height>
     <v-flex xs12 sm12 class="event_body" :style="{ 'background-color': json.backgroundColor}" >
       <v-card class="event_card">
-        <app-header v-if="headerState" :hideTitle="!titleState" :style="{ 'background-color': json.headerBackgroundColor}">
+        <app-header v-if="headerState && headerStateCli" :hideTitle="!titleState" :style="{ 'background-color': json.headerBackgroundColor}">
           <span slot="title">{{json.title}}</span>
         </app-header>
         <event-dialog id="eventDialog" :data="dialogData" :dialog="dialogState" @closeDialog="dialogState = $event"></event-dialog>
@@ -61,7 +61,7 @@
         </v-layout>
       </v-footer>
     </v-flex>
-    <app-footer  v-if="footerState" :color="json.footerBackGroundColor">
+    <app-footer  v-if="footerState && footerStateCli" :color="json.footerBackGroundColor">
       <span slot="right">
           <div class="flash_box" >
                   <clock v-if="json.showClock" ></clock>
@@ -112,7 +112,7 @@ import HeaderState from '@/components/HeaderLogin';
           backgroundColor : '#e9fafb',
           headerBackgroundColor : '#e9fafb',
           footerBackGroundColor : 'rgb(196, 237, 240)',
-          title : 'Event',
+          title : '{{title}}',
           showClock: true,
           showState: true,
           showLineRow: false,
@@ -145,7 +145,10 @@ import HeaderState from '@/components/HeaderLogin';
         error: true,
         timeout: 0,
         mmsReady: false,
-        mms: null
+        mms: null,
+        headerStateCli: {{header}},
+        footerStateCli: {{footer}},
+        iconStateCli: {{icon}}
       }
     },
      computed: {
