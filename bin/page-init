@@ -48,11 +48,11 @@ program.on('--help', () => {
  * Help.
  */
 
-function help () {
-  program.parse(process.argv)
-  if (program.args.length < 1) return program.help()
-}
-help()
+// function help () {
+//   program.parse(process.argv)
+//   if (program.args.length < 1) return program.help()
+// }
+// help()
 
 /**
  * Settings.

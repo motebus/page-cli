@@ -1,16 +1,63 @@
 #!/usr/bin/env node
 
 const chalk = require('chalk')
+const minimist = require('minimist')
+const program = require('commander')
+const questions = require('../lib/pageQuestions')
+const generate = require('../lib/generateLocal')
+const path = require('path')
+const logger = require('../lib/logger')
 
-console.log()
-console.log(
-  `  ` +
-  chalk.yellow(`page create`) +
-  ' is a Page CLI 1 only command and you are using Page CLI ' +
-  require('../package.json').version + '.'
-)
-console.log(`  You may want to run the following to upgrade to Page CLI 1:`)
-console.log()
-console.log(chalk.cyan(`  npm uninstall -g Page-cli`))
-console.log(chalk.cyan(`  npm install -g @Page/cli`))
-console.log()
+
+program
+  //.command('create')
+  .description('create a new page powered by page-cli')
+  //.option('-f, --force', 'Overwrite target directory if it exists')
+  .action(async (template, cmd) => {
+    var options = cleanArgs(cmd)
+
+    if (minimist(process.argv.slice(3))._.length > 1) {
+      console.log(chalk.yellow('\n Info: You provided more than one argument. The first one will be used as the app\'s name, the rest are ignored.'))
+    }
+
+    options = await questions(options);
+
+    const currentFileUrl = __dirname;
+    const templateDir = path.resolve(
+      new URL(currentFileUrl).pathname,
+      '../templates',
+      options.template
+    );
+
+    const dest = path.resolve(process.cwd(), './src');
+
+    generate(dest, templateDir, dest, options,err => {
+      if (err) logger.fatal(err)
+      console.log()
+      logger.success('Generated "%s".', dest)
+    });
+
+  })
+
+program.parse(process.argv)
+
+// if (!process.argv.slice(2).length) {
+//   program.outputHelp()
+// }
+
+
+function camelize (str) {
+  return str.replace(/-(\w)/g, (_, c) => c ? c.toUpperCase() : '')
+}
+
+function cleanArgs (cmd) {
+  const args = {}
+  if(cmd && cmd.options)
+    cmd.options.forEach(o => {
+      const key = camelize(o.long.replace(/^--/, ''))
+      if (typeof cmd[key] !== 'function' && typeof cmd[key] !== 'undefined') {
+        args[key] = cmd[key]
+      }
+    })
+  return args
+}
