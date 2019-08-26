@@ -7,7 +7,7 @@ A simple CLI for scaffolding gitpage projects.
 Prerequisites: [Node.js](https://nodejs.org/en/) (>=6.x, 8.x preferred), npm version 3+ and [Git](https://git-scm.com/).
 
 ``` bash
-$ npm install -g page-cli
+$ npm install -g @motebus/page-cli
 ```
 
 ### Usage
