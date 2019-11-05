@@ -1,5 +1,4 @@
 <template>
-    <!-- <v-dialog  v-model="getDialog" fullscreen hide-overlay transition="dialog-center-transition"> -->
     <v-dialog  v-model="getDialog" fullscreen hide-overlay >
 
       <v-card class="edit_card">

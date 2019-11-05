@@ -7,22 +7,6 @@
                <v-icon>clear</v-icon>
             </v-btn>
         </v-card-title>
-
-        <!-- <v-card-text v-if="getData && !getData.ErrMsg">
-          <ul class="event_meta">
-            <li v-if="getData.From">From DDN: {{ getData.From.DDN }}, From Name : {{getData.From.Name}}</li>
-            <li v-if="getData.To">To DDN : {{ getData.To.DDN }}, To Name : {{getData.To.Name}}</li>
-            <li v-if="getData.State" :class="{event_ok: getData.status == 'ok', event_error: getData.status == 'error', event_warning : getData.status == 'warning', event_info: getData.status == 'info'}">Send State : {{getData.State.RstMsg}}</li>
-            <li v-if="getData.State" >Reply State : {{getData.RstMsg}}</li>
-          </ul>
-
-        </v-card-text>
-        <v-card-text v-if="getData && getData.ErrMsg">
-          <ul class="event_meta">
-            <li >ErrCode: {{ getData.ErrCode }}</li>
-            <li >ErrMsg: {{ getData.ErrMsg }}</li>
-          </ul>
-        </v-card-text> -->
         <v-card-text>
           <ul>
             <li >Time: {{ getData.time }}</li>
@@ -40,13 +24,6 @@
               >
             </vue-json-pretty>
         </v-card-text>
-
-        <!-- <v-card-actions>
-          <v-spacer></v-spacer>
-
-
-
-        </v-card-actions> -->
       </v-card>
     </v-dialog>
 </template>

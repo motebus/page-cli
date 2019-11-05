@@ -1,11 +1,5 @@
 <template>
   <ul class="user_state">
-    <!-- <li v-if="!auth">
-        <router-link to="/register">Sign Up</router-link>
-    </li>
-    <li v-if="!auth">
-        <router-link to="/login">Sign In</router-link>
-    </li> -->
     <li v-if="auth">
         <v-menu
             v-model="menu"
@@ -16,21 +10,13 @@
             bottom
           >
       <template v-slot:activator="{ on }">
-         <!-- <v-btn class="user_btn" light small flat v-on="on">
-            {{user.FirstName}} {{user.LastName}}
-            <v-icon right dark>person</v-icon>
-          </v-btn> -->
           <v-btn class="user_btn_fab" fab light small v-on="on">
               <v-icon>person</v-icon>
           </v-btn>
       </template>
-
       <v-card>
         <v-list>
           <v-list-tile avatar>
-            <!-- <v-list-tile-avatar>
-              <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John">
-            </v-list-tile-avatar> -->
             <v-list-tile-content>
               <v-list-tile-title>{{user.UserName}}</v-list-tile-title>
               <v-list-tile-sub-title>{{user.FirstName}} {{user.LastName}}</v-list-tile-sub-title>
@@ -38,12 +24,9 @@
 
           </v-list-tile>
         </v-list>
-
         <v-divider></v-divider>
-
         <v-card-actions>
           <v-spacer></v-spacer>
-
           <v-btn color="primary" class="user_btn" small outline flat @click="onLogout">Logout</v-btn>
         </v-card-actions>
       </v-card>

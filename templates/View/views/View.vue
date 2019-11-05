@@ -2,7 +2,7 @@
       <v-layout row fill-height>
     <v-flex xs12 sm12 class="event_body" :style="{ 'background-color': json.backgroundColor}" >
       <v-card class="event_card">
-        <app-header v-if="headerState && headerStateCli" :hideTitle="!titleState" :style="{ 'background-color': json.headerBackgroundColor}">
+        <app-header v-if="headerState" :hideTitle="!titleState" :style="{ 'background-color': json.headerBackgroundColor}">
           <span slot="title">{{json.title}}</span>
         </app-header>
         <event-dialog id="eventDialog" :data="dialogData" :dialog="dialogState" @closeDialog="dialogState = $event"></event-dialog>
@@ -61,7 +61,7 @@
         </v-layout>
       </v-footer>
     </v-flex>
-    <app-footer  v-if="footerState && footerStateCli" :color="json.footerBackGroundColor">
+    <app-footer  v-if="footerState" :color="json.footerBackGroundColor">
       <span slot="right">
           <div class="flash_box" >
                   <clock v-if="json.showClock" ></clock>
@@ -79,10 +79,11 @@ import Clock  from '@/components/Clock';
 import { setTimeout, setInterval } from 'timers';
 import { isNumber } from 'util';
 import parse from "url-parse";
-import webmms from "webmms";
+import webmms from "webmms-client";
 import { set as setCookie, get as getCookie, remove as removeCookie } from "es-cookie";
 import { mapGetters } from 'vuex';
 import HeaderState from '@/components/HeaderLogin';
+import conf from '@/config/config';
 
   export default {
      data () {
@@ -99,8 +100,8 @@ import HeaderState from '@/components/HeaderLogin';
           topic: 'jj://page',
         },
          eiInfo: {
-          eiName: '{{einame}}',
-          eiTag: '{{eitag}}',
+          eiName: '',
+          eiTag: '',
           ddn : ''
         },
         webmmsOptions : {
@@ -112,7 +113,7 @@ import HeaderState from '@/components/HeaderLogin';
           backgroundColor : '#e9fafb',
           headerBackgroundColor : '#e9fafb',
           footerBackGroundColor : 'rgb(196, 237, 240)',
-          title : '{{title}}',
+          title : 'Event',
           showClock: true,
           showState: true,
           showLineRow: false,
@@ -145,10 +146,7 @@ import HeaderState from '@/components/HeaderLogin';
         error: true,
         timeout: 0,
         mmsReady: false,
-        mms: null,
-        headerStateCli: {{header}},
-        footerStateCli: {{footer}},
-        iconStateCli: {{icon}}
+        mms: null
       }
     },
      computed: {
@@ -213,8 +211,9 @@ import HeaderState from '@/components/HeaderLogin';
       },
       startMMS(){
           this.mms =  webmms({
-            EiToken: getCookie("{{eitoken}}") || "",
-            SToken: getCookie("{{stoken}}") || ""
+            wsurl: conf.wsurl,
+            EiToken: getCookie("view-EiToken") || "",
+            SToken: getCookie("view-SToken") || ""
           });
       },
       readQueryParam(){
@@ -267,7 +266,7 @@ import HeaderState from '@/components/HeaderLogin';
                 this.webmmsOptions.SToken = reply.result.SToken;
                 this.webmmsOptions.UToken = reply.result.UToken;
                 if(this.eiInfo.eiName == ''){
-                  this.eiInfo.eiName = reply.result.EiName ? reply.result.EiName : 'view' + this.makeId(5);
+                  this.eiInfo.eiName = reply.result.EiName ? reply.result.EiName : 'pgVIEW' + this.makeId(5);
                 }
                  if(this.eiInfo.eiTag == ''){
                   this.eiInfo.eiTag = reply.result.EiTag ? reply.result.EiTag : '';
@@ -276,8 +275,8 @@ import HeaderState from '@/components/HeaderLogin';
 
              let expiredTime = 60 * 60 * 24 * 30 * 12;
 
-             setCookie("{{eitoken}}", this.webmmsOptions.EiToken);
-             setCookie("{{stoken}}", this.webmmsOptions.SToken);
+             setCookie("view-EiToken", this.webmmsOptions.EiToken);
+             setCookie("view-SToken", this.webmmsOptions.SToken);
 
 
              console.log('regtoCenter: %s', reply.ErrMsg);

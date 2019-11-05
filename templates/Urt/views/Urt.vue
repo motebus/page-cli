@@ -11,24 +11,19 @@
     </v-snackbar>
     <v-flex xs12 sm12 class="event_body" :style="{ 'background-color': json.backgroundColor}">
       <v-card class="event_card">
-        <!-- <v-snackbar  v-model="error" color="error" :timeout="timeout" top="top">
-          Disconnecting
-        </v-snackbar> -->
-        <app-header v-if="headerState && headerStateCli" :hideTitle="!titleState">
-          <span slot="title">{{title}}</span>
+         <app-header  v-if="headerState" :hideTitle="!titleState">
+          <span slot="title">Urt</span>
         </app-header>
         <urt-dialog id="eventDialog" :data="dialogData" :dialog="dialogState" @closeDialog="dialogState = $event"></urt-dialog>
         <v-layout class="urt_form">
             <v-flex xs12 sm10 offset-sm1 md6 offset-md3>
                 <v-card class="card_form">
                     <v-toolbar class="card_form_toolbar"  light dense>
-                    <!-- <v-avatar style="margin-left: -15px;" size="70" tile="tile"><img :src="JJ" /></!-->
                     <v-toolbar-title style="font-size: 11pt;font-weight: bold;margin-left: 0;" :style="[$vuetify.breakpoint.xs ? {'font-size': '10pt'} : {}]">{{eiInfo.eiName}} ({{eiInfo.ddn}})</v-toolbar-title>
                     <v-spacer></v-spacer>
 
                      <v-menu bottom left>
                         <template v-slot:activator="{ on }">
-                            <!-- <v-btn v-on="on"  class="hidden-xs-only">Sample</v-btn> -->
                             <v-btn v-on="on"  fab light small :style="[$vuetify.breakpoint.xs ? {'height': '30px','width': '30px', 'margin': '0','margin-left': '8px'} : {}]">
                                 <v-icon>help</v-icon>
                             </v-btn>
@@ -39,8 +34,6 @@
                             </v-list-tile>
                         </v-list>
                     </v-menu>
-                    <!-- <v-btn @click="clear" class="hidden-xs-only">Clear</v-btn>
-                    <v-btn @click="webmmsSubmit" class="hidden-xs-only">Send</v-btn> -->
                     <v-btn @click="clear" fab light small :style="[$vuetify.breakpoint.xs ? {'height': '30px','width': '30px', 'margin': '0','margin-left': '8px'} : {}]">
                         <v-icon>clear</v-icon>
                     </v-btn>
@@ -51,20 +44,6 @@
                     <div style="padding:15px;padding-bottom: 0;">
                     <form>
                         <v-layout row wrap>
-                           <!-- <v-flex class="item_form" xs12>
-                                <v-select
-                                    v-model="urt.method"
-                                    v-validate="'required'"
-                                    :items="webmmsTypeList"
-                                    :error-messages="errors.collect('method')"
-                                    label="Method"
-                                    data-vv-name="method"
-                                    required
-                                    solo
-                                    ></v-select>
-                           </v-flex> -->
-                           <!-- append-icon="help"
-                           @click:append="sampleUrt('ddn')" -->
                            <v-flex class="item_form" xs12 md6>
                              <v-text-field :class="{'xs_input': $vuetify.breakpoint.xs}"
                                 v-model="urt.ddn"
@@ -123,31 +102,6 @@
                     <v-list-tile-content>
                         <v-list-tile-title class="event_default"  :class="{'event_reply': item.type == 'Out', 'event_state': item.type == 'State'}">{{ item.data }}</v-list-tile-title>
                     </v-list-tile-content>
-                    <!-- <v-flex xs2 sm2 md1 lg1 class="hidden-sm-and-down">
-                      <v-list-tile-action class="event-action"  >
-                          <v-list-tile-action-text class="event_default" >{{ item.From.DDN }}</v-list-tile-action-text>
-                      </v-list-tile-action>
-                    </v-flex>
-
-                    <v-flex xs4 sm2 md1 lg1 >
-                    <v-list-tile-action class="event-action" >
-                        <v-list-tile-title class="event_default" :style="getStyleColor(item.status)">{{ item.To.DDN }}</v-list-tile-title>
-                    </v-list-tile-action>
-                    </v-flex>
-
-                    <v-flex xs2 sm2 md2 lg1>
-                    <v-list-tile-action class="event-action" >
-                        <v-list-tile-action-text class="event_default"> {{ item.State.ErrMsg }}</v-list-tile-action-text>
-                    </v-list-tile-action>
-                    </v-flex> -->
-
-                    <!-- <v-flex xs3 sm3 md2 lg2>
-                    <v-list-tile-action class="event-action">
-                        <v-list-tile-sub-title :style="getStyleColor(item.status)"> {{ item.RstMsg }}</v-list-tile-sub-title>
-                    </v-list-tile-action>
-                    </v-flex> -->
-
-
 
                 </v-layout>
             </v-list-tile>
@@ -181,13 +135,6 @@
                         <v-list-tile-action-text class="event_default" style="color:#ce0000"> {{ item.ErrCode }}</v-list-tile-action-text>
                     </v-list-tile-action>
                     </v-flex>
-
-                    <!-- <v-flex xs3 sm3 md2 lg2>
-                    <v-list-tile-action class="event-action">
-                        <v-list-tile-sub-title :style="getStyleColor(item.status)"> {{ item.RstMsg }}</v-list-tile-sub-title>
-                    </v-list-tile-action>
-                    </v-flex> -->
-
                     <v-flex :class="{xs4 : json.displayField.length == 5, xs5 : json.displayField.length == 4,
                                     md6 : json.displayField.length == 5, md8 : json.displayField.length == 4,
                                     lg7 : json.displayField.length == 5, lg8 : json.displayField.length == 4}"    v-if="displayField('content')">
@@ -203,7 +150,7 @@
         </v-list>
       </v-card>
     </v-flex>
-     <app-footer v-if="footerState && footerStateCli">
+     <app-footer  v-if="footerState">
       <span slot="right">
           <div class="flash_box" >
                   <clock v-if="json.showClock" ></clock>
@@ -216,15 +163,17 @@
 <script>
 import get from 'lodash/get';
 import JJ from '@/assets/gitpage_icon.png';
-import MMS from '../webmms';
 import UrtDialog from '../components/urt/UrtDialog';
 import Clock  from '../components/Clock';
 import { setTimeout, setInterval } from 'timers';
 import { isNumber } from 'util';
 import parse from "url-parse";
-import webmms from "webmms";
+import webmms from "webmms-client";
 import { set as setCookie, get as getCookie, remove as removeCookie } from "es-cookie";
 import { mapGetters } from 'vuex';
+import HeaderState from '@/components/HeaderLogin';
+import conf from '@/config/config';
+import urtSampleList from '@/assets/json/urt';
 
   export default {
     $_veeValidate: {
@@ -303,14 +252,7 @@ import { mapGetters } from 'vuex';
             func: 'echo',
             payload: { data : 'test' }
         },
-        urtSamples : [
-            { name : 'Sample1', data : {ddn: '>>123456',topic: 'group-mms',func: 'echo',payload: { data : 'test' }}},
-            { name : 'Sample2', data : {ddn: '>>123456',topic: 'object-mms',func: 'echo',payload: { data : 'test' }}},
-            { name : 'Sample3', data : {ddn: '>>stevenhsu',topic: 'nfc://01',func: '',payload: { data : 'test' }}},
-            { name : 'Sample4', data : {ddn: '>>rezarkh',topic: 'nfc://02',func: 'echo',payload: { data : 'reza' }}},
-            { name : 'Sample5', data : {ddn: 'Tyhsdfc',topic: 'iot://dd',func: 'echo',payload: { data : 'test' }}},
-            { name : 'Sample6', data : {ddn: '>>654872',topic: 'ddn://xxx',func: 'echo',payload: 'test'}}
-        ],
+        urtSamples : urtSampleList,
         eventList: [],
         errorList: [],
         error: true,
@@ -318,13 +260,10 @@ import { mapGetters } from 'vuex';
         errorMsg: '',
         timeout: 3000,
         mmsReady: false,
-        mms: null,
-        headerStateCli: {{header}},
-        footerStateCli: {{footer}},
-        iconStateCli: {{icon}}
+        mms: null
       }
     },
-    computed: {
+     computed: {
       ...mapGetters([
         'headerState',
         'footerState',
@@ -333,7 +272,8 @@ import { mapGetters } from 'vuex';
     },
     components: {
       UrtDialog ,
-      Clock
+      Clock,
+      HeaderState,
     },
     directives: {
         'indicator' : {
@@ -385,15 +325,17 @@ import { mapGetters } from 'vuex';
       },
       startMMS(){
           this.mms =  webmms({
+            wsurl: this.config.websockURL,
             EiToken: getCookie("urt-EiToken") || "",
             SToken: getCookie("urt-SToken") || ""
           });
       },
       readQueryParam(){
-          const { json, src, yp, name, tag } = this.$route.query;
+          const { json, src, yp, name, tag, lib } = this.$route.query;
 
           this.eiInfo.eiName = name || '';
           this.eiInfo.eiTag = tag ? '#' + tag : '';
+          this.config.websockURL = lib ? `https://${lib}` : conf.wsurl;
 
 
           if(src) {
@@ -491,21 +433,6 @@ import { mapGetters } from 'vuex';
 
                 this.setLog(result, 'Out');
 
-                // if(result.ErrMsg){
-                //     this.errorList.push(result);
-                //     console.log(result);
-                // }else if(result.Reply == ''){
-                //     this.errorList.push(result.State);
-                //     console.log(result);
-                // }
-                // else{
-                //     let event = result.Reply;
-                //     event.To = result.IN.To;
-                //     event.From = result.IN.From;
-                //     event.State = result.IN.State;
-                //     this.eventList.push(event);
-                //     console.log(event);
-                // }
             }
         }else{
            this.loading = true;
@@ -532,21 +459,6 @@ import { mapGetters } from 'vuex';
                   return;
 
                 this.setLog(result, 'Out');
-                // if(result.ErrMsg){
-                //     this.errorList.push(result);
-                //     console.log(result);
-                // }else if(result.Reply == ''){
-                //     this.errorList.push(result.State);
-                //     console.log(result);
-                // }
-                // else{
-                //     let event = result.Reply;
-                //     event.To = result.IN.To;
-                //     event.From = result.IN.From;
-                //     event.State = result.IN.State;
-                //     this.eventList.push(event);
-                //     console.log(event);
-                // }
             }
         }
 
@@ -561,14 +473,13 @@ import { mapGetters } from 'vuex';
       },
       async subscribeMMS() {
         this.removeEvent = this.mms.on("registered", async reply => {
-            //console.log('reply=%s', JSON.stringify(reply))
              if(reply.ErrMsg == "OK"){
                 this.eiInfo.ddn = reply.result.DDN;
                 this.webmmsOptions.EiToken = reply.result.EiToken;
                 this.webmmsOptions.SToken = reply.result.SToken;
                 this.webmmsOptions.UToken = reply.result.UToken;
                 if(this.eiInfo.eiName == ''){
-                  this.eiInfo.eiName = reply.result.EiName ? reply.result.EiName : 'urt' + this.makeId(5);
+                  this.eiInfo.eiName = reply.result.EiName ? reply.result.EiName : 'pgURT' + this.makeId(5);
                 }
                  if(this.eiInfo.eiTag == ''){
                   this.eiInfo.eiTag = reply.result.EiTag ? reply.result.EiTag : '';
@@ -585,10 +496,9 @@ import { mapGetters } from 'vuex';
             this.setLog({'regtoCenter':reply}, 'State');
              this.mmsReady = true;
              this.error = false;
-            //  let deviceInfo = {"DDN":this.eiInfo.ddn,"EiOwner":"","EiName":this.eiInfo.eiName,"EiType":".page","EiTag":this.eiInfo.eiTag,"EiLoc":""};
-            //  let result = await this.mms.setDeviceInfo(deviceInfo);
-            //  console.log('SetDevice reply=%s', JSON.stringify(result));
-            //  this.setLog({'SetDevice reply':result}, 'State');
+             let deviceInfo = {"DDN":this.eiInfo.ddn,"EiOwner":"","EiName":this.eiInfo.eiName,"EiType":".page","EiTag":this.eiInfo.eiTag,"EiLoc":""};
+             let result = await this.mms.setDeviceInfo(deviceInfo);
+             console.log('SetDevice reply=%s', JSON.stringify(result));
         });
 
         this.mms.on('message', (method, from, data, body) => {
@@ -677,7 +587,6 @@ import { mapGetters } from 'vuex';
   padding-right: 15px !important;
 }
 .urt_form{
-    margin-top: 50px;
     margin-bottom: 0;
 }
 .item_form{

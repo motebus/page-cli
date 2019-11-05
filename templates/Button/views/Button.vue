@@ -1,76 +1,35 @@
 <template>
-    <v-layout>
-       <app-header  v-if="headerState && headerStateCli" :hideTitle="!titleState">
-          <span slot="title">{{title}}</span>
+<div>
+       <app-header  v-if="headerState" :hideTitle="!titleState" style="z-index:999">
+          <span slot="title">Button</span>
         </app-header>
+    <v-container fluid>
       <v-layout justify-center row  wrap style="margin-top:55px;">
-          <v-flex  v-for="item in list" :key="item.name" xs4 sm3 md2>
-              <v-responsive class="button__item__wrapper" :aspect-ratio="1/1">
-                  <v-btn class="button__item__btn ma-0" absolute block flat icon @click="sendMMS(item.payload)">
-                    <img :src="item.img" />
-                  </v-btn>
+          <v-flex  v-for="item in list" :key="item.name" xs6 sm4 md3>
+              <v-responsive class="button__item__wrapper align-center" style="text-align:center" :aspect-ratio="1/1">
+                   <button class="button__item__btn" @click="sendMMS(item.url)"><img :src="item.img" /></button>
               </v-responsive>
               <div class="button__item__name">{{ item.name }}</div>
           </v-flex>
       </v-layout>
-     <app-footer  v-if="footerState && footerStateCli">
+    </v-container>
+    <app-footer  v-if="footerState" style="z-index:999">
     </app-footer>
-    </v-layout>
+    </div>
 </template>
 
 <script>
-import webmms from 'webmms';
+import webmms from 'webmms-client';
 import { set as setCookie, get as getCookie, remove as removeCookie } from "es-cookie";
 import { mapGetters } from 'vuex';
 import { setTimeout } from 'timers';
-
-const list = [
-  {
-    name: '資訊導覽',
-    payload: 'https://mustme.ypcloud.com/ModeInfo',
-    img: './images/buttons/jboard_icon-29.png',
-  },
-  {
-    name: '系網頁',
-    payload: 'https://mustme.ypcloud.com/ModeActivity',
-    img: './images/buttons/jboard_icon-47.png',
-  },
-  {
-    name: '成果展示',
-    payload: 'https://mustme.ypcloud.com/ModeShow',
-    img: './images/buttons/jboard_icon-33.png',
-  },
-  {
-    name: '系所簡介',
-    payload: 'https://mustme.ypcloud.com/ModeIntroduction',
-    img: './images/buttons/jboard_icon-42.png',
-  },
-  {
-    name: '頻道',
-    payload: 'https://mustme.ypcloud.com/Channel',
-    img: './images/buttons/jboard_icon-48.png',
-  },
-  {
-    name: '師資介紹',
-    payload: 'https://mustme.ypcloud.com/ModeTeacher',
-    img: './images/buttons/jboard_icon-38.png',
-  },
-  {
-    name: '校友會',
-    payload: 'https://mustme.ypcloud.com/ModeFriend',
-    img: './images/buttons/jboard_icon-31.png',
-  },
-  {
-    name: '高中職專欄',
-    payload: 'https://mustme.ypcloud.com/ModeHigh',
-    img: './images/buttons/jboard_icon-34.png',
-  },
-];
+import json from "@/assets/json/button.json";
+import conf from '@/config/config';
 
 export default {
     data() {
       return {
-        list,
+        list:json,
         mms: null,
         mmsReady: false,
         loading: false,
@@ -84,7 +43,7 @@ export default {
           topic: '',
           params: {
             pin: {
-              default: 'ylobby',
+              default: '',
             },
           },
         },
@@ -104,9 +63,6 @@ export default {
           func: 'parse',
           args: null
         },
-        headerStateCli: {{header}},
-        footerStateCli: {{footer}},
-        iconStateCli: {{icon}}
       };
     },
     computed: {
@@ -135,7 +91,7 @@ export default {
         topic : topic,
         payload: data
       });
-       this.response = res;
+        this.response = res;
     },
     setParams() {
       const urlps = new URL(window.location).searchParams;
@@ -170,8 +126,9 @@ export default {
     },
     startMMS() {
       this.mms =  webmms({
-              EiToken: getCookie("stk-EiToken") || "",
-              SToken: getCookie("stk-SToken") || ""
+              wsurl: conf.wsurl,
+              EiToken: getCookie("jj-EiToken") || "",
+              SToken: getCookie("jj-SToken") || ""
             });
     },
     async subscribeMMS() {
@@ -284,10 +241,12 @@ export default {
     text-align: center
     font-size: $l
     &__btn
-      +size(80%, 80%)
-      +ab_center
+      border-radius: 100%
+      +size(60%, 60%)
+      //+background
+      //+threeDify(15,#999999)
       img
-        +size(60%, 60%)
+        +size(100%, 100%)
 
 </style>
 <style scoped>

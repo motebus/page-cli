@@ -1,5 +1,5 @@
  <template>
-       <v-layout row >
+       <v-layout row>
         <v-snackbar  v-model="error" color="error" :timeout="timeout" top="top">
           {{errorMsg}}
         </v-snackbar>
@@ -13,34 +13,19 @@
                         @has-error="onJsonError"></vue-json-editor>
        </edit-dialog>
        <v-flex xs12 align-space-around fill-height>
-        <app-header  v-if="headerState && headerStateCli" :hideTitle="!titleState">
-          <span slot="title">{{title}}</span>
+        <app-header  v-if="headerState" :hideTitle="!titleState">
+          <span slot="title">YP</span>
           <span slot="right">
                 <v-btn style="margin-top: 0px;width:30px;height:30px;" @click.stop="insertYp()"  fab small light>
                   <v-icon>add</v-icon>
                  </v-btn>
           </span>
-        </app-header >
+        </app-header>
           <v-card class="yp_card"  light>
           <v-progress-linear v-if="isLoading" class="loading" height="4" :indeterminate="true"></v-progress-linear>
 
               <v-card-text>
                  <v-flex xs12 sm10 offset-sm1 md8 offset-md2>
-                  <!-- <v-autocomplete
-                    v-model="model"
-                    :items="items"
-                    :loading="isLoading"
-                    :search-input.sync="search"
-                    color="grey"
-                    hide-no-data
-                    hide-selected
-                    item-text="name"
-                    item-value="name"
-                    label="Group Name"
-                    placeholder="Start typing to Search"
-                    prepend-icon="mdi-database-search"
-                    return-object
-                  ></v-autocomplete> -->
                    <v-text-field v-model="model"
                         v-on:keyup.enter="searchText"
                         label="Search keyword or group name"
@@ -64,16 +49,6 @@
                             </v-list-tile-action>
                             </template>
                         </v-layout>
-                        <!-- <v-list-tile-action v-if="item.showOperand">
-                              <v-btn @click.stop="editYp(item, index)" color="primary"  fab small light>
-                                  <v-icon>edit</v-icon>
-                              </v-btn>
-                        </v-list-tile-action >
-                        <v-list-tile-action v-if="item.showOperand">
-                              <v-btn @click.stop="deleteYp(item, index)" color="error"  fab small light>
-                                  <v-icon>clear</v-icon>
-                              </v-btn>
-                        </v-list-tile-action> -->
                          <v-list-tile-action>
                             <v-btn @click.stop="dupplicateYp(item, index)" outline color="indigo"  fab small light>
                                 <v-icon>filter_none</v-icon>
@@ -85,7 +60,7 @@
             </v-expand-transition>
           </v-card>
        </v-flex>
-        <app-footer  v-if="footerState && footerStateCli">
+        <app-footer  v-if="footerState">
         </app-footer>
     </v-layout>
 </template>
@@ -93,9 +68,11 @@
 import vueJsonEditor from 'vue-json-editor';
 import EditDialog from '../components/yp/EditDialog';
 import { setTimeout } from 'timers';
-import webmms from "webmms";
+import webmms from "webmms-client";
 import { set as setCookie, get as getCookie, remove as removeCookie } from "es-cookie";
 import { mapGetters } from 'vuex';
+import HeaderState from '@/components/HeaderLogin';
+import conf from '@/config/config';
 
 export default {
     data (){
@@ -133,10 +110,7 @@ export default {
         result: [],
         isLoading: false,
         model: null,
-        search: null,
-        headerStateCli: {{header}},
-        footerStateCli: {{footer}},
-        iconStateCli: {{icon}}
+        search: null
       }
     },
     async created() {
@@ -161,7 +135,12 @@ export default {
         return this.entries.map(entry => {
           return entry;
         })
-      }
+      },
+      ...mapGetters([
+        'headerState',
+        'footerState',
+        'titleState'
+      ])
     },
      watch: {
      async search (val) {
@@ -185,16 +164,10 @@ export default {
         this.searchText();
       }
     },
-    computed: {
-      ...mapGetters([
-        'headerState',
-        'footerState',
-        'titleState'
-      ])
-    },
     components :{
         vueJsonEditor,
         EditDialog ,
+        HeaderState,
     },
     methods: {
       insertYp(){
@@ -356,6 +329,7 @@ export default {
       },
       startMMS(){
           this.mms =  webmms({
+            wsurl: conf.wsurl,
             EiToken: getCookie("yp-EiToken") || "",
             SToken: getCookie("yp-SToken") || ""
           });
@@ -475,7 +449,6 @@ export default {
 <style scoped>
 .yp_card{
   height: 90%;
-      margin-top: 50px;
 }
 .yp_list{
    background-color:#fafafa;

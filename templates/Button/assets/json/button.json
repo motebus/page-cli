@@ -1,0 +1,42 @@
+[
+  {
+    "name": "資訊導覽",
+    "url": "https://mustme.ypcloud.com/ModeInfo",
+    "img": "./images/telegram sticker/jboard_icon-29-512x512.png"
+  },
+  {
+    "name": "系網頁",
+    "url": "https://mustme.ypcloud.com/ModeActivity",
+    "img": "./images/telegram sticker/jboard_icon-47-512x512.png"
+  },
+  {
+    "name": "成果展示",
+    "url": "https://mustme.ypcloud.com/ModeShow",
+    "img": "./images/telegram sticker/jboard_icon-33-512x512.png"
+  },
+  {
+    "name": "系所簡介",
+    "url": "https://mustme.ypcloud.com/ModeIntroduction",
+    "img": "./images/telegram sticker/jboard_icon-42-512x512.png"
+  },
+  {
+    "name": "頻道",
+    "url": "https://mustme.ypcloud.com/Channel",
+    "img": "./images/telegram sticker/jboard_icon-48-512x512.png"
+  },
+  {
+    "name": "師資介紹",
+    "url": "https://mustme.ypcloud.com/ModeTeacher",
+    "img": "./images/telegram sticker/jboard_icon-38-512x512.png"
+  },
+  {
+    "name": "校友會",
+    "url": "https://mustme.ypcloud.com/ModeFriend",
+    "img": "./images/telegram sticker/jboard_icon-31-512x512.png"
+  },
+  {
+    "name": "高中職專欄",
+    "url": "https://mustme.ypcloud.com/ModeHigh",
+    "img": "./images/telegram sticker/jboard_icon-34-512x512.png"
+  }
+]
